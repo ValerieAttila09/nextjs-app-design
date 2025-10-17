@@ -1,18 +1,112 @@
 import { menu } from "@/lib/constants";
+import { useGSAP } from "@gsap/react";
+import { gsap } from "gsap";
 import { BellIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { useRef, useState } from "react";
 
 export default function Sidebar({ currentPath }: { currentPath: string }) {
+
+  const sidebarRef = useRef(null);
+  const sidebarMenuNameRef = useRef<HTMLDivElement[]>([]);
+  const sidebarNotification = useRef<HTMLDivElement>(null);
+  const sidebarLogoName = useRef<HTMLHeadingElement>(null);
+
+  const [isClosed, setIsClosed] = useState<boolean>(true);
+
+  useGSAP(() => {
+    gsap.set(sidebarRef.current, {
+      width: "60px",
+    });
+    gsap.set(sidebarMenuNameRef.current, {
+      width: 0,
+      opacity: 0
+    });
+    gsap.set(sidebarNotification.current, {
+      width: 0,
+      opacity: 0
+    });
+    gsap.set(sidebarLogoName.current, {
+      width: 0,
+      opacity: 0
+    });
+  })
+
+  const setOpen = () => {
+    gsap.to(sidebarRef.current, {
+      width: "256px",
+      duration: 0.35,
+      ease: "power2.out",
+      onStart: () => {
+        gsap.to(sidebarLogoName.current, {
+          width: "auto",
+          opacity: 1,
+          duration: 0.35,
+          ease: "power2.out"
+        });
+        gsap.to(sidebarNotification.current, {
+          width: "auto",
+          opacity: 1,
+          duration: 0.35,
+          ease: "power2.out"
+        });
+        gsap.to(sidebarMenuNameRef.current, {
+          width: "auto",
+          opacity: 1,
+          marginLeft: "6px",
+          duration: 0.35,
+          ease: "power2.out"
+        });
+      }
+    })
+    setIsClosed(!isClosed);
+  }
+
+  const setClose = () => {
+    gsap.to(sidebarRef.current, {
+      width: "60px",
+      duration: 0.35,
+      ease: "power2.out",
+      onStart: () => {
+        gsap.to(sidebarLogoName.current, {
+          width: 0,
+          opacity: 0,
+          duration: 0.35,
+          ease: "power2.out"
+        });
+        gsap.to(sidebarNotification.current, {
+          width: 0,
+          opacity: 0,
+          duration: 0.35,
+          ease: "power2.out"
+        });
+        gsap.to(sidebarMenuNameRef.current, {
+          width: 0,
+          opacity: 0,
+          marginLeft: "0px",
+          duration: 0.35,
+          ease: "power2.out"
+        });
+      }
+    })
+    setIsClosed(!isClosed);
+  }
+
   return (
-    <div className="h-screen w-64 bg-white shadow-md border border-[#ebebeb] p-2">
+    <div
+      ref={sidebarRef}
+      onMouseEnter={() => setOpen()}
+      onMouseLeave={() => setClose()}
+      className="fixed left-0 top-0 bottom-0 w-64 bg-white shadow-md p-2"
+    >
       <div className="relative flex flex-col gap-4">
         <div className="flex items-center justify-between p-2">
           <div className="flex items-center gap-2">
-            <Image src={"/icons/NVIDIA_Symbol_1.png"} height={32} width={32} alt="Icon" />
-            <h1 className="text-sm outfit-medium text-neutral-900">NVIDIA Corps</h1>
+            <Image src={"/icons/NVIDIA_Symbol_1.png"} height={28} width={28} alt="Icon" />
+            <h1 ref={sidebarLogoName} className="text-nowrap text-sm outfit-medium text-neutral-900">NVIDIA Corps</h1>
           </div>
-          <div className="flex items-center gap-2">
+          <div ref={sidebarNotification} className="flex items-center gap-2">
             <div className="relative rounded-full flex items-center justify-center border border-transparent hover:border-[#ebebeb] transition-all p-[6px]">
               <BellIcon className="w-5 h-5" color="#464646" />
               <div className="absolute -translate-y-2 translate-x-1 size-3 bg-white" />
@@ -26,15 +120,15 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
           </div>
         </div>
         <div className="space-y-2">
-          <div className="space-y-2">
-            <div className="mx-2 text-xs text-neutral-400 outfit-semibold">MAIN</div>
-            {menu.map((menuData) => {
+          <div className="space-y-[6px]">
+            <div className="text-xs ms-1 flex items-center text-neutral-400 outfit-semibold"><span>MAIN</span></div>
+            {menu.map((menuData, index) => {
               const IconMenu = menuData.icon;
               const isActive = currentPath === menuData.path;
               return (
-                <Link key={menuData.path} href={menuData.path} className={`flex items-center gap-2 rounded-lg ${isActive ? "bg-neutral-100" : "bg-white"} p-2 hover:bg-neutral-100 hover:shadow-sm transition-all`}>
-                  <IconMenu className="w-4 h-4" color={isActive ? "#171717" : "#525252"} />
-                  <div className={`outfit-medium text-sm ${isActive ? "text-neutral-900" : "text-neutral-600"}`}>{menuData.page}</div>
+                <Link key={menuData.path} href={menuData.path} className={`flex items-center ps-3 rounded-lg ${isActive ? "bg-neutral-100" : "bg-white"} hover:bg-neutral-100 py-[10px] hover:shadow-sm transition-all`}>
+                  <IconMenu className="w-5 h-5" color={isActive ? "#171717" : "#525252"} />
+                  <div ref={(el) => { if (el) sidebarMenuNameRef.current[index] = el }} className={`text-nowrap outfit-medium text-sm ${isActive ? "text-neutral-900" : "text-neutral-600"}`}>{menuData.page}</div>
                 </Link>
               );
             })}
