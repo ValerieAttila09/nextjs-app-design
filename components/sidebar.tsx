@@ -21,15 +21,15 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
     });
     gsap.set(sidebarMenuNameRef.current, {
       width: 0,
-      opacity: 0
+      opacity: 0,
     });
     gsap.set(sidebarNotification.current, {
       width: 0,
-      opacity: 0
+      opacity: 0,
     });
     gsap.set(sidebarLogoName.current, {
       width: 0,
-      opacity: 0
+      opacity: 0,
     });
   })
 
@@ -98,7 +98,7 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
       ref={sidebarRef}
       onMouseEnter={() => setOpen()}
       onMouseLeave={() => setClose()}
-      className="fixed left-0 top-0 bottom-0 w-64 bg-white shadow-md p-2"
+      className="fixed overflow-hidden left-0 top-0 bottom-0 w-64 bg-white border-r border-[#ebebeb] p-2"
     >
       <div className="relative flex flex-col gap-4">
         <div className="flex items-center justify-between p-2">
@@ -112,8 +112,8 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
               <div className="absolute -translate-y-2 translate-x-1 size-3 bg-white" />
               <div className="absolute -translate-y-2 translate-x-1 z-2">
                 <span className="relative flex size-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-sky-400 opacity-75"></span>
-                  <span className="relative inline-flex size-2 rounded-full bg-sky-500"></span>
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
+                  <span className="relative inline-flex size-2 rounded-full bg-green-500"></span>
                 </span>
               </div>
             </div>
@@ -128,7 +128,7 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
               return (
                 <Link key={menuData.path} href={menuData.path} className={`flex items-center ps-3 rounded-lg ${isActive ? "bg-neutral-100" : "bg-white"} hover:bg-neutral-100 py-[10px] hover:shadow-sm transition-all`}>
                   <IconMenu className="w-5 h-5" color={isActive ? "#171717" : "#525252"} />
-                  <div ref={(el) => { if (el) sidebarMenuNameRef.current[index] = el }} className={`text-nowrap outfit-medium text-sm ${isActive ? "text-neutral-900" : "text-neutral-600"}`}>{menuData.page}</div>
+                  <div ref={(el) => { if (el) sidebarMenuNameRef.current[index] = el }} className={`text-nowrap outfit-regular text-sm ${isActive ? "text-neutral-900" : "text-neutral-600"}`}>{menuData.page}</div>
                 </Link>
               );
             })}
