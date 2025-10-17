@@ -5,6 +5,8 @@
   "scripts": {
     "dev": "next dev --turbopack",
     "build": "next build --turbopack",
+    "doc": "docker run -p 3000:3000 my-app",
+    "docker-list": "docker ps",
     "start": "next start",
     "lint": "eslint"
   },
