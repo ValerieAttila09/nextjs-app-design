@@ -1,4 +1,4 @@
-import { menu } from "@/lib/constants";
+import { menu, secondaryMenu } from "@/lib/constants";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import { BellIcon } from "lucide-react";
@@ -10,6 +10,7 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
 
   const sidebarRef = useRef(null);
   const sidebarMenuNameRef = useRef<HTMLDivElement[]>([]);
+  const sidebarSecondaryMenuNameRef = useRef<HTMLDivElement[]>([]);
   const sidebarNotification = useRef<HTMLDivElement>(null);
   const sidebarLogoName = useRef<HTMLHeadingElement>(null);
 
@@ -20,6 +21,10 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
       width: "60px",
     });
     gsap.set(sidebarMenuNameRef.current, {
+      width: 0,
+      opacity: 0,
+    });
+    gsap.set(sidebarSecondaryMenuNameRef.current, {
       width: 0,
       opacity: 0,
     });
@@ -58,6 +63,13 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
           duration: 0.35,
           ease: "power2.out"
         });
+        gsap.to(sidebarSecondaryMenuNameRef.current, {
+          width: "auto",
+          opacity: 1,
+          marginLeft: "6px",
+          duration: 0.35,
+          ease: "power2.out"
+        });
       }
     })
     setIsClosed(!isClosed);
@@ -88,6 +100,13 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
           duration: 0.35,
           ease: "power2.out"
         });
+        gsap.to(sidebarSecondaryMenuNameRef.current, {
+          width: 0,
+          opacity: 0,
+          marginLeft: "0px",
+          duration: 0.35,
+          ease: "power2.out"
+        });
       }
     })
     setIsClosed(!isClosed);
@@ -112,8 +131,8 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
               <div className="absolute -translate-y-2 translate-x-1 size-3 bg-white" />
               <div className="absolute -translate-y-2 translate-x-1 z-2">
                 <span className="relative flex size-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75"></span>
-                  <span className="relative inline-flex size-2 rounded-full bg-green-500"></span>
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#8acf12] opacity-70"></span>
+                  <span className="relative inline-flex size-2 rounded-full bg-[#76B900]"></span>
                 </span>
               </div>
             </div>
@@ -126,9 +145,26 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
               const IconMenu = menuData.icon;
               const isActive = currentPath === menuData.path;
               return (
-                <Link key={menuData.path} href={menuData.path} className={`flex items-center ps-3 rounded-lg ${isActive ? "bg-neutral-100" : "bg-white"} hover:bg-neutral-100 py-[10px] hover:shadow-sm transition-all`}>
+                <Link key={menuData.path} href={menuData.path} className={`relative overflow-hidden flex items-center ps-3 rounded-md ${isActive ? "bg-neutral-100" : "bg-white"} hover:bg-neutral-100 py-[10px] hover:shadow-sm transition-all`}>
+                  { isActive && <div className="absolute left-0 w-[3px] h-full bg-[#76B900]" />}
                   <IconMenu className="w-5 h-5" color={isActive ? "#171717" : "#525252"} />
                   <div ref={(el) => { if (el) sidebarMenuNameRef.current[index] = el }} className={`text-nowrap outfit-regular text-sm ${isActive ? "text-neutral-900" : "text-neutral-600"}`}>{menuData.page}</div>
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+        <div className="space-y-2">
+          <div className="space-y-[6px]">
+            <div className="text-xs ms-1 flex items-center text-neutral-400 outfit-semibold"><span>WORK</span></div>
+            {secondaryMenu.map((menuData, index) => {
+              const IconMenu = menuData.icon;
+              const isActive = currentPath === menuData.path;
+              return (
+                <Link key={menuData.path} href={menuData.path} className={`relative overflow-hidden flex items-center ps-3 rounded-md ${isActive ? "bg-neutral-100" : "bg-white"} hover:bg-neutral-100 py-[10px] hover:shadow-sm transition-all`}>
+                  { isActive && <div className="absolute left-0 w-[3px] h-full bg-[#76B900]" />}
+                  <IconMenu className="w-5 h-5" color={isActive ? "#171717" : "#525252"} />
+                  <div ref={(el) => { if (el) sidebarSecondaryMenuNameRef.current[index] = el }} className={`text-nowrap outfit-regular text-sm ${isActive ? "text-neutral-900" : "text-neutral-600"}`}>{menuData.page}</div>
                 </Link>
               );
             })}
