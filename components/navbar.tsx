@@ -2,7 +2,7 @@ import { menu } from "@/lib/constants"
 import { secondaryMenu } from "@/lib/constants"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { SettingsIcon, SunDimIcon } from "lucide-react"
+import { Command, Search, SettingsIcon, SunDimIcon } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 
@@ -11,7 +11,7 @@ export default function Navbar({ pathName }: { pathName: string }) {
   const [userProfileVisibility, setUserProfileVisibility] = useState<boolean>(false);
   const userProfile = useRef<HTMLDivElement | null>(null);
   const userProfileButton = useRef<HTMLButtonElement | null>(null);
-  const themeToggle = useRef<HTMLButtonElement | null >(null)
+  const themeToggle = useRef<HTMLButtonElement | null>(null)
 
   useGSAP(() => {
     gsap.set(userProfile.current, {
@@ -84,8 +84,19 @@ export default function Navbar({ pathName }: { pathName: string }) {
       </div>
       <div className="flex items-center gap-2">
 
+        <button className="w-auto pe-2 ps-8 pb-1 pt-[1px] rounded-md border border-[#d7d7d7] relative overflow-hidden hover:shadow-sm transition-all">
+          <Search className="absolute left-2 top-[6px] w-4 h-4" color="#727272" />
+          <input type="text" className="outline-none text-xs outfit-regular text-neutral-700 w-64" placeholder="Search" />
+          <div className="absolute right-2 top-[5px] flex items-center gap-1">
+            <Command className="w-4 h-4" color="#727272"/>
+            <span className="text-[#727272] text-sm outfit-regular">+ K</span>
+          </div>
+        </button>
+
+        <div className="w-[1px] h-6 bg-[#d7d7d7] ms-2" />
+
         <button ref={themeToggle} className="rounded-full p-1 border border-transparent hover:border-[#ebebeb] transition-all">
-          <SunDimIcon color="#747474" className="w-5 h-5"/>
+          <SunDimIcon color="#747474" className="w-5 h-5" />
         </button>
 
         <button ref={userProfileButton} onClick={() => setUserProfileVisibility((e) => !e)} className="hover:bg-white cursor-pointer hover:border-[#ebebeb] border border-transparent transition-all rounded-full size-8 bg-neutral-200 flex items-center justify-center">

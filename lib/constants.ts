@@ -1,4 +1,4 @@
-import { Calendar, ChartAreaIcon, CheckSquareIcon, Clock10Icon, DatabaseIcon, FolderArchiveIcon, SparklesIcon } from "lucide-react";
+import { ArrowUpRightFromCircleIcon, Database, Eye, Calendar, ChartAreaIcon, CheckSquareIcon, Clock10Icon, DatabaseIcon, FolderArchiveIcon, SparklesIcon } from "lucide-react";
 
 export const menu = [
   { page: "Dashboard", path: "/dashboard", icon: ChartAreaIcon },
@@ -12,3 +12,27 @@ export const secondaryMenu = [
   { page: "Reports", path: "/reports", icon: FolderArchiveIcon },
   { page: "Activities", path: "/activities", icon: Clock10Icon },
 ];
+
+export const dashboardDataCard = [
+  {
+    title: "Page Views",
+    value: "21,463",
+    percentation: 15.8,
+    isUp: true,
+    icon: Eye
+  },
+  {
+    title: "Total Revenue",
+    value: "$ 263.95",
+    percentation: 26.9,
+    isUp: false,
+    icon: Database
+  },
+  {
+    title: "Bounce Rate",
+    value: "86.5%",
+    percentation: 24.5,
+    isUp: true,
+    icon: ArrowUpRightFromCircleIcon
+  },
+]
