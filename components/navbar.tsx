@@ -1,15 +1,17 @@
 import { menu } from "@/lib/constants"
+import { secondaryMenu } from "@/lib/constants"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { SettingsIcon } from "lucide-react"
+import { SettingsIcon, SunDimIcon } from "lucide-react"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
 
 export default function Navbar({ pathName }: { pathName: string }) {
 
-  const [userProfileVisibility, setUserProfileVisibility] = useState(false);
+  const [userProfileVisibility, setUserProfileVisibility] = useState<boolean>(false);
   const userProfile = useRef<HTMLDivElement | null>(null);
   const userProfileButton = useRef<HTMLButtonElement | null>(null);
+  const themeToggle = useRef<HTMLButtonElement | null >(null)
 
   useGSAP(() => {
     gsap.set(userProfile.current, {
@@ -65,14 +67,27 @@ export default function Navbar({ pathName }: { pathName: string }) {
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [setUserProfileVisibility]);
 
-  const getPath = menu.filter((data) => data.path === pathName);
+  const getPathMainMenu = menu.filter((data) => data.path === pathName);
+  const getPathSecondaryMenu = secondaryMenu.filter((data) => data.path === pathName);
+
+  console.log(getPathMainMenu)
+  console.log(getPathSecondaryMenu)
 
   return (
-    <div className="w-full py-2 px-4 flex items-center justify-between border-b border-[#ebebeb]">
+    <div className="bg-white w-full py-2 px-4 flex items-center justify-between border-b border-[#ebebeb]">
       <div className="">
-        <h1 className="text-lg outfit-regular text-neutral-900">{getPath.map((data, index) => (<span key={index}>{data.page}</span>))}</h1>
+        {getPathMainMenu.length != 0 ? (
+          <h1 className="text-lg outfit-regular text-neutral-900">{getPathMainMenu.map((data, index) => (<span key={index}>{data.page}</span>))}</h1>
+        ) : (
+          <h1 className="text-lg outfit-regular text-neutral-900">{getPathSecondaryMenu.map((data, index) => (<span key={index}>{data.page}</span>))}</h1>
+        )}
       </div>
-      <div className="">
+      <div className="flex items-center gap-2">
+
+        <button ref={themeToggle} className="rounded-full p-1 border border-transparent hover:border-[#ebebeb] transition-all">
+          <SunDimIcon color="#747474" className="w-5 h-5"/>
+        </button>
+
         <button ref={userProfileButton} onClick={() => setUserProfileVisibility((e) => !e)} className="hover:bg-white cursor-pointer hover:border-[#ebebeb] border border-transparent transition-all rounded-full size-8 bg-neutral-200 flex items-center justify-center">
           <h1 className="text-lg outfit-regular text-neutral-400">V</h1>
         </button>

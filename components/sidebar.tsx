@@ -170,6 +170,7 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
             })}
           </div>
         </div>
+        
       </div>
     </div>
   )
