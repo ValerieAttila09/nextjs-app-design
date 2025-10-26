@@ -10,8 +10,6 @@ export default function Dashboard() {
   const pathName = usePathname();
   console.log(pathName);
 
-
-
   return (
     <div className="min-h-screen w-full bg-neutral-50">
       <Sidebar currentPath={pathName} />
