@@ -29,8 +29,6 @@ model User {
 model Product {
   id          Int       @id @default(autoincrement())
   name        String
-  // image field menyimpan path/URL gambar produk, disarankan menggunakan nama file yang
-  // dihasilkan dari nama produk (mis. slugified-name.jpg)
   image       String?
   description String?
   price       Float
