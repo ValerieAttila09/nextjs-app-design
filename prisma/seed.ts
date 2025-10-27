@@ -3,18 +3,30 @@ import { PrismaClient, Role, OrderStatus } from '../lib/generated/prisma';
 import { faker } from '@faker-js/faker';
 
 const prisma = new PrismaClient();
+// allow `any` here because Prisma types must be regenerated after schema changes
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const db = prisma as unknown as any;
+
+function slugify(str: string) {
+  return str
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/(^-|-$)/g, '');
+}
 
 async function main() {
   // Buat beberapa kategori
-  const categories = await Promise.all(
-    Array.from({ length: 5 }).map(() =>
-      prisma.category.create({
-        data: {
-          name: faker.commerce.department(),
-        },
-      })
-    )
-  );
+  // const categories = await Promise.all(
+  //   Array.from({ length: 5 }).map(() =>
+  //     prisma.category.create({
+  //       data: {
+  //         name: faker.commerce.department(),
+  //       },
+  //     })
+  //   )
+  // );
+
+  const categories = await prisma.category.findMany();
 
   // Buat beberapa user
   const users = await Promise.all(
@@ -32,17 +44,21 @@ async function main() {
 
   // Buat beberapa produk
   const products = await Promise.all(
-    Array.from({ length: 20 }).map(() =>
-      prisma.product.create({
+    Array.from({ length: 20 }).map(() => {
+      const name = faker.commerce.productName();
+      const imageFileName = `${slugify(name)}.jpg`;
+      const imagePath = `/images/${imageFileName}`;
+      return db.product.create({
         data: {
-          name: faker.commerce.productName(),
+          name,
           description: faker.commerce.productDescription(),
           price: parseFloat(faker.commerce.price({ min: 10, max: 500 })),
           stock: faker.number.int({ min: 0, max: 100 }),
           categoryId: faker.helpers.arrayElement(categories).id,
+          image: imagePath,
         },
-      })
-    )
+      });
+    })
   );
 
   // Buat beberapa order dengan item

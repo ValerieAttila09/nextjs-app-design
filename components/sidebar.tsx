@@ -1,3 +1,5 @@
+"use client";
+
 import { menu, secondaryMenu } from "@/lib/constants";
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
