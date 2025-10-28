@@ -3,5 +3,5 @@ export interface DashboardData {
   value: number | string;
   percentation: number | string;
   isUp: boolean;
-  icon: never;
+  icon: ForwardRefExoticComponent<Omit<LucideProps, "ref"> & RefAttributes<SVGSVGElement>>;
 }
