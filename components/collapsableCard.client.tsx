@@ -2,13 +2,16 @@
 
 import React, { useRef } from "react";
 import type { Product, Category } from "@/lib/generated/prisma";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
 
 type Props = {
   products: Product[];
   categories: Category[];
+  activeTabs: string | null | never;
 };
 
-export default function CollapsableCardClient({ products, categories }: Props) {
+export default function CollapsableCardClient({ products, categories, activeTabs }: Props) {
   const listTabs = useRef<HTMLDivElement | null>(null);
   const gridTabs = useRef<HTMLDivElement | null>(null);
 
@@ -20,9 +23,64 @@ export default function CollapsableCardClient({ products, categories }: Props) {
     ) : null;
   };
 
+  useGSAP(() => {
+    gsap.set(listTabs.current, {
+      opacity: 1,
+      zIndex: 1
+    });
+    gsap.set(gridTabs.current, {
+      opacity: 0,
+      zIndex: -1
+    });
+
+    if (activeTabs == "list") {
+      gsap.to(listTabs.current, {
+        opacity: 1,
+        onStart: () => {
+          gsap.to(listTabs.current, {
+            zIndex: 1,
+          });
+        },
+        duration: 0.35,
+        ease: 'power2.out'
+      });
+      gsap.to(gridTabs.current, {
+        opacity: 0,
+        onComplete: () => {
+          gsap.to(listTabs.current, {
+            zIndex: 1,
+          });
+        },
+        duration: 0.35,
+        ease: 'power2.out'
+      });
+    } else if (activeTabs == "grid") {
+      gsap.to(listTabs.current, {
+        opacity: 0,
+        onComplete: () => {
+          gsap.to(listTabs.current, {
+            zIndex: 1,
+          });
+        },
+        duration: 0.35,
+        ease: 'power2.out'
+      });
+      gsap.to(gridTabs.current, {
+        opacity: 1,
+        onStart: () => {
+          gsap.to(listTabs.current, {
+            zIndex: 1,
+          });
+        },
+        duration: 0.35,
+        ease: 'power2.out'
+      });
+    }
+  });
+
   return (
     <div className="w-full h-full overflow-hidden">
-      <div ref={listTabs} className="hidden w-full bg-white rounded-md border border-[#ebebeb] pb-2">
+      <div ref={listTabs} className="w-full bg-white rounded-md border border-[#ebebeb] pb-2">
         <table className="min-w-full">
           <thead>
             <tr className="border-b border-[#ebebeb]">

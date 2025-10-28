@@ -1,3 +1,4 @@
+import { tabsIcons } from "@/components/contents/tabsIcons";
 import { ArrowUpRightFromCircleIcon, Database, Eye, Calendar, ChartAreaIcon, CheckSquareIcon, Clock10Icon, DatabaseIcon, FolderArchiveIcon, SparklesIcon } from "lucide-react";
 
 export const menu = [
@@ -34,5 +35,20 @@ export const dashboardDataCard = [
     percentation: 24.5,
     isUp: true,
     icon: ArrowUpRightFromCircleIcon
+  },
+]
+
+export const tabsOptions = [
+  {
+    name: "list",
+    icon: tabsIcons[0],
+  },
+  {
+    name: "grid",
+    icon: tabsIcons[1],
+  },
+  {
+    name: "json",
+    icon: tabsIcons[2],
   },
 ]

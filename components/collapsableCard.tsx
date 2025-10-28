@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import CollapsableCardClient from "./collapsableCard.client";
+import CollapsableCardWrapper from "./collapsableCard.wrapper.client";
 
 export default async function CollapsableCard() {
   const products = await prisma.product.findMany({
@@ -13,5 +13,5 @@ export default async function CollapsableCard() {
 
   const categories = await prisma.category.findMany();
 
-  return <CollapsableCardClient products={products} categories={categories} />;
+  return <CollapsableCardWrapper products={products} categories={categories} />;
 }
