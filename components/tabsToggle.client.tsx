@@ -39,7 +39,7 @@ export function TabsToggleClient({
   setIsActive: Dispatch<SetStateAction<string | null>>
 }) {
   return (
-    <div className="w-full px-4 py-4">
+    <div className="w-full px-4 py-2">
       <h2 className="text-4xl outfit-semibold mb-2">Produk Terbaru</h2>
       <div className="mb-4 flex items-center justify-start">
         <ToggleButton active={isActive} setActive={setIsActive} />
