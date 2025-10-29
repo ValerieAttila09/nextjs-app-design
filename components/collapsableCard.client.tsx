@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useRef } from "react";
+import React, { Dispatch, SetStateAction, useRef } from "react";
 import type { Product, Category } from "@/lib/generated/prisma";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -9,9 +9,10 @@ type Props = {
   products: Product[];
   categories: Category[];
   activeTabs: string | null | never;
+  setIsActive: Dispatch<SetStateAction<string | null>>;
 };
 
-export default function CollapsableCardClient({ products, categories, activeTabs }: Props) {
+export default function CollapsableCardClient({ products, categories, activeTabs, setIsActive }: Props) {
   const listTabs = useRef<HTMLDivElement | null>(null);
   const gridTabs = useRef<HTMLDivElement | null>(null);
 
@@ -24,14 +25,14 @@ export default function CollapsableCardClient({ products, categories, activeTabs
   };
 
   useGSAP(() => {
-    gsap.set(listTabs.current, {
-      opacity: 1,
-      zIndex: 1
-    });
-    gsap.set(gridTabs.current, {
-      opacity: 0,
-      zIndex: -1
-    });
+    // gsap.set(listTabs.current, {
+    //   opacity: 1,
+    //   zIndex: 1
+    // });
+    // gsap.set(gridTabs.current, {
+    //   opacity: 1,
+    //   zIndex: 1
+    // });
 
     if (activeTabs == "list") {
       gsap.to(listTabs.current, {
@@ -39,6 +40,8 @@ export default function CollapsableCardClient({ products, categories, activeTabs
         onStart: () => {
           gsap.to(listTabs.current, {
             zIndex: 1,
+            duration: 0.35,
+            ease: 'power2.out'
           });
         },
         duration: 0.35,
@@ -47,8 +50,10 @@ export default function CollapsableCardClient({ products, categories, activeTabs
       gsap.to(gridTabs.current, {
         opacity: 0,
         onComplete: () => {
-          gsap.to(listTabs.current, {
-            zIndex: 1,
+          gsap.to(gridTabs.current, {
+            zIndex: -1,
+            duration: 0.35,
+            ease: 'power2.out'
           });
         },
         duration: 0.35,
@@ -59,7 +64,9 @@ export default function CollapsableCardClient({ products, categories, activeTabs
         opacity: 0,
         onComplete: () => {
           gsap.to(listTabs.current, {
-            zIndex: 1,
+            zIndex: -1,
+            duration: 0.35,
+            ease: 'power2.out'
           });
         },
         duration: 0.35,
@@ -68,19 +75,21 @@ export default function CollapsableCardClient({ products, categories, activeTabs
       gsap.to(gridTabs.current, {
         opacity: 1,
         onStart: () => {
-          gsap.to(listTabs.current, {
+          gsap.to(gridTabs.current, {
             zIndex: 1,
+            duration: 0.35,
+            ease: 'power2.out'
           });
         },
         duration: 0.35,
         ease: 'power2.out'
       });
     }
-  });
+  }, [activeTabs]);
 
   return (
-    <div className="w-full h-full overflow-hidden">
-      <div ref={listTabs} className="w-full bg-white rounded-md border border-[#ebebeb] pb-2">
+    <div className="w-full h-full relative px-4">
+      <div ref={listTabs} className="absolute inset-x-4 inset-y-auto bg-white rounded-md border border-[#ebebeb] pb-2">
         <table className="min-w-full">
           <thead>
             <tr className="border-b border-[#ebebeb]">
@@ -118,7 +127,7 @@ export default function CollapsableCardClient({ products, categories, activeTabs
           <p className="text-neutral-700 text-xs">Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit fugiat asperiores ipsum ipsam mollitia? Nam quaerat libero dolorum ad tempora est quisquam repellendus magnam.</p>
         </div>
       </div>
-      <div ref={gridTabs} className="grid grid-cols-3 gap-4">
+      <div ref={gridTabs} className="absolute inset-x-4 inset-y-0 grid grid-cols-3 gap-4">
         {products.map((p) => (
           <div key={p.id} className="bg-white p-4 rounded-md border border-[#ebebeb]">
             <div className="min-h-[5rem] flex items-start justify-between">

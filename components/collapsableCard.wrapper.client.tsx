@@ -11,12 +11,13 @@ type Props = {
 };
 
 export default function CollapsableCardWrapper({ products, categories }: Props) {
-  const [activeTabs, setActiveTabs] = useState<string | null>("list");
+  const [activeTabs, setActiveTabs] = useState<string | null>("grid");
+  console.log(`Active tabs : ${activeTabs}`);
 
   return (
-    <div>
+    <>
       <TabsToggleClient isActive={activeTabs} setIsActive={setActiveTabs} />
-      <CollapsableCardClient products={products} categories={categories} activeTabs={activeTabs} />
-    </div>
+      <CollapsableCardClient products={products} categories={categories} activeTabs={activeTabs} setIsActive={setActiveTabs}/>
+    </>
   );
 }
