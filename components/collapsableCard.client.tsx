@@ -25,15 +25,6 @@ export default function CollapsableCardClient({ products, categories, activeTabs
   };
 
   useGSAP(() => {
-    // gsap.set(listTabs.current, {
-    //   opacity: 1,
-    //   zIndex: 1
-    // });
-    // gsap.set(gridTabs.current, {
-    //   opacity: 1,
-    //   zIndex: 1
-    // });
-
     if (activeTabs == "list") {
       gsap.to(listTabs.current, {
         opacity: 1,

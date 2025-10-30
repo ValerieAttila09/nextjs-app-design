@@ -1,11 +1,15 @@
 'use client';
 
+import { Calendar } from "@/components/ui/calendar"
 import Navbar from "@/components/navbar";
 import Sidebar from "@/components/sidebar"
 import { usePathname } from "next/navigation"
+import { useState } from "react";
 
 
 export default function Calendars() {
+  const [date, setDate] = useState<Date | undefined>(new Date())
+
   const pathName = usePathname();
   console.log(pathName);
   return (
@@ -14,6 +18,14 @@ export default function Calendars() {
 
       <div className="ms-[60px]">
         <Navbar pathName={pathName} />
+        <div className="p-6">
+          <Calendar
+            mode="single"
+            selected={date}
+            onSelect={setDate}
+            className="rounded-lg border"
+          />
+        </div>
       </div>
     </div>
   )
