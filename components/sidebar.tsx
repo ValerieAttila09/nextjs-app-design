@@ -119,7 +119,7 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
       ref={sidebarRef}
       onMouseEnter={() => setOpen()}
       onMouseLeave={() => setClose()}
-      className="fixed overflow-hidden left-0 top-0 bottom-0 w-64 bg-white border-r border-[#ebebeb] p-2"
+      className="fixed overflow-hidden z-10 left-0 top-0 bottom-0 w-64 bg-white border-r border-[#ebebeb] p-2"
     >
       <div className="relative flex flex-col gap-4">
         <div className="flex items-center justify-between p-2">

@@ -16,7 +16,7 @@ export const secondaryMenu = [
 
 export const dashboardDataCard = [
   {
-    title: "Page Views",
+    title: "Total Products",
     value: "21,463",
     percentation: 15.8,
     isUp: true,
@@ -36,7 +36,7 @@ export const dashboardDataCard = [
     isUp: true,
     icon: ArrowUpRightFromCircleIcon
   },
-]
+];
 
 export const tabsOptions = [
   {

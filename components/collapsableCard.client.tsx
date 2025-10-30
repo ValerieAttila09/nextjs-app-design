@@ -25,15 +25,6 @@ export default function CollapsableCardClient({ products, categories, activeTabs
   };
 
   useGSAP(() => {
-    // gsap.set(listTabs.current, {
-    //   opacity: 1,
-    //   zIndex: 1
-    // });
-    // gsap.set(gridTabs.current, {
-    //   opacity: 1,
-    //   zIndex: 1
-    // });
-
     if (activeTabs == "list") {
       gsap.to(listTabs.current, {
         opacity: 1,
@@ -88,7 +79,7 @@ export default function CollapsableCardClient({ products, categories, activeTabs
   }, [activeTabs]);
 
   return (
-    <div className="w-full h-full relative px-4">
+    <div className="w-full h-full relative">
       <div ref={listTabs} className="absolute inset-x-4 inset-y-auto bg-white rounded-md border border-[#ebebeb] pb-2">
         <table className="min-w-full">
           <thead>
