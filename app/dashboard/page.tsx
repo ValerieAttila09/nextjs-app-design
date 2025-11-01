@@ -7,7 +7,7 @@ import CollapsableCard from "@/components/collapsableCard";
 export default async function DashboardPage() {
   const pathName = '/dashboard';
   return (
-    <div className="min-h-screen w-full bg-neutral-50">
+    <div className="w-full">
       <Sidebar currentPath={pathName} />
       <div className="ms-[60px] pb-6">
         <Navbar pathName={pathName} />
