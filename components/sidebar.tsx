@@ -147,7 +147,7 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
               const IconMenu = menuData.icon;
               const isActive = currentPath === menuData.path;
               return (
-                <Link key={menuData.path} href={menuData.path} className={`relative overflow-hidden flex items-center ps-3 rounded-md ${isActive ? "bg-neutral-100" : "bg-white"} hover:bg-neutral-100 py-[10px] hover:shadow-sm transition-all`}>
+                <Link key={menuData.path} href={menuData.path} className={`relative overflow-hidden flex items-center ps-3 rounded-md ${isActive ? "bg-neutral-100" : "bg-white"} hover:bg-neutral-100 py-[10px] transition-all`}>
                   { isActive && <div className="absolute left-0 w-[3px] h-full bg-[#76B900]" />}
                   <IconMenu className="w-5 h-5" color={isActive ? "#171717" : "#525252"} />
                   <div ref={(el) => { if (el) sidebarMenuNameRef.current[index] = el }} className={`text-nowrap outfit-regular text-sm ${isActive ? "text-neutral-900" : "text-neutral-600"}`}>{menuData.page}</div>
@@ -163,7 +163,7 @@ export default function Sidebar({ currentPath }: { currentPath: string }) {
               const IconMenu = menuData.icon;
               const isActive = currentPath === menuData.path;
               return (
-                <Link key={menuData.path} href={menuData.path} className={`relative overflow-hidden flex items-center ps-3 rounded-md ${isActive ? "bg-neutral-100" : "bg-white"} hover:bg-neutral-100 py-[10px] hover:shadow-sm transition-all`}>
+                <Link key={menuData.path} href={menuData.path} className={`relative overflow-hidden flex items-center ps-3 rounded-md ${isActive ? "bg-neutral-100" : "bg-white"} hover:bg-neutral-100 py-[10px] transition-all`}>
                   { isActive && <div className="absolute left-0 w-[3px] h-full bg-[#76B900]" />}
                   <IconMenu className="w-5 h-5" color={isActive ? "#171717" : "#525252"} />
                   <div ref={(el) => { if (el) sidebarSecondaryMenuNameRef.current[index] = el }} className={`text-nowrap outfit-regular text-sm ${isActive ? "text-neutral-900" : "text-neutral-600"}`}>{menuData.page}</div>
