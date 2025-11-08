@@ -1,7 +1,7 @@
 'use client';
 
-import Navbar from "@/components/navbar";
-import Sidebar from "@/components/sidebar"
+import Navbar from "@/components/navbar/navbar";
+import Sidebar from "@/components/sidebar/sidebar"
 import { usePathname } from "next/navigation"
 
 
@@ -10,10 +10,10 @@ export default function Database() {
   console.log(pathName);
   return (
     <div className="min-h-screen w-full bg-white">
-      <Sidebar currentPath={pathName}/>
+      <Sidebar currentPath={pathName} />
 
       <div className="ms-[60px]">
-        <Navbar pathName={pathName}/>
+        <Navbar pathName={pathName} />
       </div>
     </div>
   )

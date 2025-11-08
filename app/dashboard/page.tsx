@@ -1,8 +1,8 @@
-import Sidebar from "@/components/sidebar";
-import Navbar from "@/components/navbar";
-import DashboardCard from "@/components/dashboardCard";
+import Sidebar from "@/components/sidebar/sidebar";
+import Navbar from "@/components/navbar/navbar";
+import DashboardCard from "@/components/cards/dashboardCard";
 import { dashboardDataCard } from "@/lib/constants";
-import CollapsableCard from "@/components/collapsableCard";
+import CollapsableCard from "@/components/cards/collapsableCard";
 
 export default async function DashboardPage() {
   const pathName = '/dashboard';

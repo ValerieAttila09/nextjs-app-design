@@ -1,7 +1,7 @@
 'use client';
 
-import Navbar from "@/components/navbar";
-import Sidebar from "@/components/sidebar"
+import Navbar from "@/components/navbar/navbar";
+import Sidebar from "@/components/sidebar/sidebar"
 import { usePathname } from "next/navigation"
 
 

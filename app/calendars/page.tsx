@@ -1,8 +1,8 @@
 'use client';
 
 import { Calendar } from "@/components/ui/calendar"
-import Navbar from "@/components/navbar";
-import Sidebar from "@/components/sidebar"
+import Navbar from "@/components/navbar/navbar";
+import Sidebar from "@/components/sidebar/sidebar"
 import { usePathname } from "next/navigation"
 import { useState } from "react";
 

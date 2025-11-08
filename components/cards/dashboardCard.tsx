@@ -1,5 +1,5 @@
 import { DashboardData } from "@/lib/interfaces";
-import { ArrowDownRight, ArrowUpRight, ArrowUpRightFromCircleIcon, Database, Eye, InfoIcon } from "lucide-react";
+import { ArrowDownRight, ArrowUpRight, InfoIcon } from "lucide-react";
 
 export default function DashboardCard({ data }: { data: DashboardData }) {
   const Icon = data.icon

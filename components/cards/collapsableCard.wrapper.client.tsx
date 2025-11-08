@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import type { Product, Category } from "@/lib/generated/prisma";
-import { TabsToggleClient } from "./tabsToggle.client";
+import { TabsToggleClient } from "../tabsToggle.client";
 import CollapsableCardClient from "./collapsableCard.client";
 
 type Props = {
@@ -17,7 +17,7 @@ export default function CollapsableCardWrapper({ products, categories }: Props) 
   return (
     <>
       <TabsToggleClient isActive={activeTabs} setIsActive={setActiveTabs} />
-      <CollapsableCardClient products={products} categories={categories} activeTabs={activeTabs} setIsActive={setActiveTabs}/>
+      <CollapsableCardClient products={products} categories={categories} activeTabs={activeTabs} setIsActive={setActiveTabs} />
     </>
   );
 }
